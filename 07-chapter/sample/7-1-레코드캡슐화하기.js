@@ -1,5 +1,3 @@
-import { func } from "prop-types";
-
 class Organization {
   constructor(data) {
     this._name = data.name;
@@ -32,6 +30,8 @@ export function getRawDataOfOrganization() {
   return organization;
 }
 
+// --------------------------------------------------------------
+
 export let customerData = {
   1920: {
     name: "martin",
@@ -50,10 +50,32 @@ export let customerData = {
 };
 const amount = 10;
 //쓰기 - customerData[customerID].usages[year][month] = amount;
-customerData[1920].usages[2016][3] = amount;
 //읽기
 export function compareUsage(customerID, laterYear, month) {
-  const later = customerData[customerID].usages[laterYear][month];
-  const earlier = customerData[customerID].usages[laterYear - 1][month];
+  const later = getRawDataOfCustomers()[customerID].usages[laterYear][month];
+  const earlier =
+    getRawDataOfCustomers()[customerID].usages[laterYear - 1][month];
   return { laterAmount: later, change: later - earlier };
+}
+
+function setRawDataOfCustomers(arg) {
+  customerData = arg;
+}
+
+class CustomerData {
+  constructor(data) {
+    this._data = data;
+  }
+}
+
+function getCustoemrData() {
+  return customerData;
+}
+export function getRawDataOfCustomers() {
+  return customerData._data;
+}
+
+setRawDataOfCustomer(customerData);
+function setRawDataOfCustomer(arg) {
+  customerData = new CustomerData(arg);
 }
