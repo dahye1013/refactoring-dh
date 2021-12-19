@@ -32,7 +32,7 @@ export function getRawDataOfOrganization() {
 
 // --------------------------------------------------------------
 
-export let customerData = {
+let customerData = {
   1920: {
     name: "martin",
     id: "1920",
@@ -48,34 +48,38 @@ export let customerData = {
     },
   },
 };
-const amount = 10;
-//쓰기 - customerData[customerID].usages[year][month] = amount;
-//읽기
-export function compareUsage(customerID, laterYear, month) {
-  const later = getRawDataOfCustomers()[customerID].usages[laterYear][month];
-  const earlier =
-    getRawDataOfCustomers()[customerID].usages[laterYear - 1][month];
-  return { laterAmount: later, change: later - earlier };
+
+function getCustomerData() {
+  return customerData;
 }
 
-function setRawDataOfCustomers(arg) {
-  customerData = arg;
+export function getRawDataOfCustomers() {
+  return customerData._data;
+}
+
+export function setRawDataOfCustomer(arg) {
+  customerData = new CustomerData(arg);
+}
+
+export function compareUsage(customerID, laterYear, month) {
+  const later = getCustomerData().usage(customerID, laterYear, month);
+  const earlier = getCustomerData().usage(customerID, laterYear, month);
+  return { laterAmount: later, change: later - earlier };
 }
 
 class CustomerData {
   constructor(data) {
     this._data = data;
   }
-}
-
-function getCustoemrData() {
-  return customerData;
-}
-export function getRawDataOfCustomers() {
-  return customerData._data;
+  //쓰기 캡슐화
+  setUsage(customerID, year, month, amount) {
+    this._data[customerID].usages[year][month] = amount;
+  }
+  //읽기 캡슐화
+  usage(customerID, year, month) {
+    return this._data[customerID].usages[year][month];
+  }
 }
 
 setRawDataOfCustomer(customerData);
-function setRawDataOfCustomer(arg) {
-  customerData = new CustomerData(arg);
-}
+customerData.setUsage(1920, 2016, 3, 10);

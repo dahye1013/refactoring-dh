@@ -2,7 +2,6 @@ import {
   organization,
   getRawDataOfOrganization,
   //
-  customerData,
   compareUsage,
   getRawDataOfCustomers,
 } from "../sample/7-1-레코드캡슐화하기";
@@ -33,7 +32,6 @@ describe("[Chpater07.1 레코드 캡슐화]", () => {
 
   describe("07-1-2 중첩된 레코드 캡슐화", () => {
     test("변수캡슐화", () => {
-      getRawDataOfCustomers()[customerID].usages[year][month] = amount; //쓰기
       expect(compareUsage(customerID, year, month).laterAmount).toEqual(amount); //읽기
     });
   });
