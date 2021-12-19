@@ -60,7 +60,8 @@
   const basicChargeAmount = aReading.baseCharge;
 
   //클라이언트2
-  const rawReading = acquireReading();
+  const rawR
+  eading = acquireReading();
   const aReading = new Reading(rawReading);
   const totalCharge = Math.max(
     0,

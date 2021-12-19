@@ -1,11 +1,12 @@
-describe("[Chpate6.19ver] check reading unchanged", () => {
-  it("1 is number", () => {
-    assert.equal(typeof 1, Number);
-  });
-});
+import { acquireReading, Reading } from "./CombineFunctionsIntoClass";
 
-// describe("[Chpate6.19ver] check reading unchanged", () => {
-//   it("check reading unchanged", () => {
+const rawReading = acquireReading();
+const aReading = new Reading(rawReading);
+
+export const basicChargeAmount = aReading.baseCharge;
+
+// describe("[Chpate6.9ver] check reading unchanged", () => {
+//   test("check reading unchanged", () => {
 //     const baseReading = {
 //       customer: "ivan",
 //       quantity: 10,
@@ -24,6 +25,7 @@ describe("[Chpate6.19ver] check reading unchanged", () => {
 //       return baseRate(aReading.month, aReading.year);
 //     }
 //     enrichReading(baseReading);
-//     assert.equal(baseReading, oracle);
+//     // assert.equal(baseReading, oracle);
+//     expect(baseReading).toBe(oracle);
 //   });
 // });
