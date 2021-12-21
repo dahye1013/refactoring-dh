@@ -8,6 +8,10 @@ class Person {
   get department() {
     return this._department;
   }
+  //위임 메소드를 통해서 의존성을 줄인다.
+  get manager() {
+    return this._department.manager;
+  }
   set department(arg) {
     this._department = arg;
   }
@@ -30,4 +34,9 @@ class Departement {
 }
 
 const aPerson = new Person();
-const manager = aPerson.department.manager;
+/**
+ * 기존 읽기 코드에서 접근자 제거
+ */
+//const manager = aPerson.department.manager;
+
+const manager = aPerson.manager;
