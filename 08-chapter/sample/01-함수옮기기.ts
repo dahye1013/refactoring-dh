@@ -7,7 +7,7 @@
     //(중첩 함수를 최상위로 올리기)
     //- const로 선언해서 function이 아닌 호이스팅으로 인한 메모리 참조가 불가하여, 미리 위에 선언해둠.
     //-> 최상위로 복사하면서 새로운 임시 이름 지어줌
-    const top_calculateDistance = (points: number[]) => {
+    const calculateDistance = (points: number[]) => {
       let result = 0;
       for (let i = 1; i < points.length; i++) {
         result += distance(points[i - 1], points[i]);
@@ -16,12 +16,11 @@
     };
 
     const totalTime: number = calculateTime(); //숫자
-    const totalDistance = top_calculateDistance; //함수 할당
-    const pace = totalTime / 60 / totalDistance(points);
+    const pace = totalTime / 60 / calculateDistance(points);
 
     return {
       time: totalTime,
-      distance: totalDistance,
+      distance: calculateDistance(points),
       pace: pace,
     };
   };
