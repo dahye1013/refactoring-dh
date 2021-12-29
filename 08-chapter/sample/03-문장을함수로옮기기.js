@@ -3,18 +3,21 @@ function renderPerson(person) {
   result.push(`<p>${person.name}</p>`);
   result.push(renderPhoto(person.photo));
   result.push(zzem(person.photo)); //--추출함수
-  //   result.push(`<p>title: ${person.photo.title}</p>`);
   result.push(emitPhotoData(person.photo));
   return result.join("\n");
 }
 
 function photoDiv(aPhoto) {
-  return ["<div>", `<p>title: ${aPhoto.title}</p>`, "</div>"].join("\n");
+  return ["<div>", emitPhotoData(aPhoto), "</div>"].join("\n");
 }
 
-//함수추출
+//함수추출 + emitPhotoData 함수 인라인
 function zzem(p) {
-  return [`<p>title: ${p.title}</p>`, emitPhotoData(p)].join("\n");
+  return [
+    `<p>title: ${p.title}</p>`,
+    `<p>location: ${p.location}</p>`,
+    `<p>date: ${p.date.toDateString()}</p>`,
+  ].join("\n");
 }
 
 function emitPhotoData(aPhoto) {
