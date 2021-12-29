@@ -1,32 +1,43 @@
-class Customer {
-  constructor(name, discountRate) {
-    this._name = name;
-    this._discountRate = discountRate;
-    this._setDiscountRate(discountRate);
-    this._contract = new CustomerContract(this.dateToday());
+{
+  class Customer {
+    constructor(name, discountRate) {
+      this._name = name;
+      this._discountRate = discountRate;
+      this._setDiscountRate(discountRate);
+      this._contract = new CustomerContract(this.dateToday());
+    }
+
+    get discountRate() {
+      return this._discountRate;
+    }
+    _setDiscountRate(aNumber) {
+      this._discountRate = aNumber;
+    }
+    becomePreferred() {
+      this._setDiscountRate(this._contract.discountRate + 0.03);
+    }
+
+    applyDiscount(amount) {
+      return amount.subtract(amount.multiply(this._contract.discountRate));
+    }
+
+    dateToday() {
+      return new Date();
+    }
   }
 
-  get discountRate() {
-    return this.__discountRate;
-  }
-  _setDiscountRate(aNumber) {
-    this._discountRate = aNumber;
-  }
-  becomePreferred() {
-    this._setDiscountRate(this.discountRate + 0.03);
-  }
+  class CustomerContract {
+    constructor(startDate, discountRate) {
+      this._startDate = startDate;
+      this._discountRate = discountRate;
+    }
 
-  applyDiscount(amount) {
-    return amount.subtract(amount.multiply(this.discountRate));
-  }
-
-  dateToday() {
-    return new Date();
-  }
-}
-
-class CustomerContract {
-  constructor(startDate) {
-    this._startDate = startDate;
+    //public setter 방지
+    get discountRate() {
+      return this._discountRate;
+    }
+    set discountRate(arg) {
+      this._discountRate = arg;
+    }
   }
 }
