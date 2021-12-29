@@ -43,11 +43,13 @@
 }
 
 {
+  const assert = require("assert");
   class Account {
     constructor(number, type, interestRate) {
       this._number = number;
       this._type = type;
       this._interestRate = interestRate;
+      assert(interestRate === this._type.interestRate);
     }
 
     get interestRate() {
@@ -56,8 +58,14 @@
   }
 
   class AccountType {
-    constructor(nameString) {
+    constructor(nameString, type, interestRate) {
       this._name = nameString;
+      this._type = type;
+      this._interestRate = interestRate;
+    }
+
+    get interestRate() {
+      return this.type._interestRate; //접근자 메소드 추가
     }
   }
 }
