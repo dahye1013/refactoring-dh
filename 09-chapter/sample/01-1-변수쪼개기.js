@@ -8,14 +8,20 @@
 
   function distanceTravelled(scenario, time) {
     let result;
-    let acc = scenario.primaryForce / scenario.mass; // (a = F / m)
+    //(첫 번째 대입)
+    //1. 용도에 적합한 '변수 이름 바꾸기'
+    //2. const로 다시 대입하지 못하도록 방지
+    const primaryAccleration = scenario.primaryForce / scenario.mass; // (a = F / m)
     let primaryTime = Math.min(time, scenario.delay);
-    result = 0.5 * acc * primaryTime ** 2;
+    result = 0.5 * primaryAccleration * primaryTime ** 2;
     let secondaryTime = time - scenario.delay;
     if (secondaryTime > 0) {
-      let primaryVelocity = acc * scenario.delay;
-      acc = (scenario.primaryForce + scengit reset --mixed HEAD^ ario.secondaryForce) / scenario.mass;
-      result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime ** 2;
+      //(두 번째 대입)
+      //1. 용도에 적합한 '변수 이름 바꾸기'
+      //-> 변수명이 아예 사라진다.
+      let secondaryAccleration = primaryAccleration * scenario.delay;
+      primaryAccleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+      result += secondaryAccleration * secondaryTime + 0.5 * primaryAccleration * secondaryTime ** 2;
     }
     return result;
   }
