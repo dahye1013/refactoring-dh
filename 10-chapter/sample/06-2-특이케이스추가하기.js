@@ -6,7 +6,7 @@ const createUnknowCustomer = () => {
 };
 //특이케이스 조건 검사 - 함수추출
 const isUnknown = (arg) => {
-  return arg === "unknown";
+  return arg.isUnknown;
 };
 
 class Site {
@@ -15,7 +15,7 @@ class Site {
   }
 
   get customer() {
-    return _customer;
+    return _customer === "unknown" ? createUnknowCustomer() : this._customer;
   }
 
   //특이케이스 속성
