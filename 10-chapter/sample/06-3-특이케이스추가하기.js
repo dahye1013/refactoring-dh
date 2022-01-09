@@ -23,7 +23,7 @@ const RECORDS = [
 
 const registry = { billingPlans: { basic: "" } };
 const acquireSiteData = () => RECORDS[0];
-const isUnknown = (customer) => customer === "unknown";
+const isUnknown = (customer) => (customer.isUnknown === "unknown" ? true : customer.isUnknown);
 
 const client1 = () => {
   const rawSite = acquireSiteData();
