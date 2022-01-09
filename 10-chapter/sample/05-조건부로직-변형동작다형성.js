@@ -52,10 +52,18 @@ class Rating {
   }
 }
 
+/**[subClass]---------------------------------------------------------------- */
+class ExperiencedChinaRating extends Rating {}
+
 /************************************************************************************************ */
 
 //투자 등급
 const rating = (voyage, history) => {
+  return createRating(voyage, history).value; //팩터리함수
+};
+
+const createRating = (voyage, history) => {
+  if (voyage.zone === "중국" && history.some((v) => "china" === v.zone)) return new ExperiencedChinaRating(voyage, history).value;
   return new Rating(voyage, history).value;
 };
 
