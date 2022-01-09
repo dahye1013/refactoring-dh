@@ -2,6 +2,7 @@
 const createUnknowCustomer = () => {
   return {
     isUnknown: true,
+    name: "occupant",
   };
 };
 //특이케이스 조건 검사 - 함수추출
@@ -51,9 +52,7 @@ class Customer {
 const client1 = () => {
   const customer = new Site().customer;
   //...
-  let customerName;
-  if (isUnknown(customer)) customerName = "occupant";
-  else customerName = customer.name;
+  let customerName = customer.name;
 };
 const client2 = () => {
   const customer = new Site().customer;
