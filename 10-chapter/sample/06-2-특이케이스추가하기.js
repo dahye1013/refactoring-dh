@@ -1,8 +1,10 @@
+const registry = { billingPlans: { basic: "" } };
 //특이케이스 객체 생성
 const createUnknowCustomer = () => {
   return {
     isUnknown: true,
     name: "occupant",
+    billingPlans: registry.billingPlans.basic,
   };
 };
 //특이케이스 조건 검사 - 함수추출
@@ -56,7 +58,7 @@ const client1 = () => {
 };
 const client2 = () => {
   const customer = new Site().customer;
-  const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
+  const plan = customer.billingPlan;
 };
 const client3 = () => {
   const customer = new Site().customer;
