@@ -31,6 +31,7 @@ const client1 = () => {
     const result = JSON.parse(JSON.stringify(aSite));
     const unKnowCustomer = {
       isUnknown: true,
+      name: "occupant",
     };
     if (isUnknown(result.customer)) return unKnowCustomer;
     else result.customer.isUnknown = false;
@@ -40,9 +41,7 @@ const client1 = () => {
   const site = enrichSite(rawSite); //깊은 복사수행
   const customer = site.customer;
   //...
-  let customerName;
-  if (isUnknown(customer)) customerName = "occupant";
-  else customerName = customer.name;
+  const customerName = customer.name;
 };
 const client2 = () => {
   const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
