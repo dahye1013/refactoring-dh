@@ -54,6 +54,16 @@ class UnKnownCustomer {
   set billingPlan(arg) {
     // 무시한다.
   }
+
+  //특이케이스가 다른 객체를 반환해야 한다면,-> 그 객체도 일반적으로 특이케이스이다.
+  get paymentHsitry() {
+    return new NullPaymentHistory();
+  }
+}
+class NullPaymentHistory {
+  get weeksDelinquentInLastYear() {
+    return 0;
+  }
 }
 
 const isUnknown = (arg) => {
@@ -77,5 +87,5 @@ const client3 = () => {
 };
 const client4 = () => {
   const customer = new Site().customer;
-  const weeksDelinquent = isUnknown(customer) ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
+  const weeksDelinquent = customer.paymentHsitry.weeksDelinquentInLastYear;
 };
