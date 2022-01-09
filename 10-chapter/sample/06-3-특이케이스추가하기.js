@@ -23,6 +23,7 @@ const RECORDS = [
 
 const registry = { billingPlans: { basic: "" } };
 const acquireSiteData = () => RECORDS[0];
+const isUnknown = (customer) => customer === "unknown";
 
 const client1 = () => {
   const rawSite = acquireSiteData();
@@ -31,12 +32,12 @@ const client1 = () => {
   const customer = site.customer;
   //...
   let customerName;
-  if (customer === "unknown") customerName = "occupant";
+  if (isUnknown(customer)) customerName = "occupant";
   else customerName = customer.name;
 };
 const client2 = () => {
-  const plan = customer === "unknown" ? registry.billingPlans.basic : customer.billingPlan;
+  const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
 };
 const client3 = () => {
-  const weeksDelinquent = customer === "unknown" ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
+  const weeksDelinquent = isUnknown(customer) ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
 };
