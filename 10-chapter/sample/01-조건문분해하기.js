@@ -14,13 +14,7 @@ const getCharge = (quantity, aDate) => {
   const summerCharge = () => quantity * plan.summerRate;
   const reugularCharge = () => quantity * plan.regularRate + plan.regularServiceCharge;
 
-  let charge;
-  if (isSummer()) {
-    charge = summerCharge();
-  } else {
-    charge = reugularCharge();
-  }
-  return charge;
+  return isSummer() ? summerCharge() : reugularCharge();
 };
 
 console.log(getCharge(10, dayjs("2022-03-29"))); //10100
