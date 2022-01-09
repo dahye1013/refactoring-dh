@@ -47,6 +47,13 @@ class UnKnownCustomer {
   get name() {
     return "occupant";
   }
+
+  get billingPlan() {
+    return registry.billingPlans.basic;
+  }
+  set billingPlan(arg) {
+    // 무시한다.
+  }
 }
 
 const isUnknown = (arg) => {
@@ -62,11 +69,11 @@ const client1 = () => {
 };
 const client2 = () => {
   const customer = new Site().customer;
-  const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
+  const plan = customer.billingPlan; //읽기
 };
 const client3 = () => {
   const customer = new Site().customer;
-  if (!isUnknown(customer)) customer.billingPlan = "new Plan";
+  customer.billingPlan = "new Plan"; //쓰기
 };
 const client4 = () => {
   const customer = new Site().customer;
