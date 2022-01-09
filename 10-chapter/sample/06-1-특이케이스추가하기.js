@@ -17,6 +17,11 @@ class Customer {
     this._paymentHistory = paymentHistory;
   }
 
+  //미확인고객여부
+  get isUnknow() {
+    return false;
+  }
+
   get name() {
     return this._name;
   }
@@ -31,6 +36,12 @@ class Customer {
 
   get paymentHistory() {
     return this._paymentHistory;
+  }
+}
+
+class UnKnownCustomer {
+  get isUnKnown() {
+    return true;
   }
 }
 
