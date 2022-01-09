@@ -16,14 +16,8 @@ class Bird {
 
   get plumage() {
     switch (this.type) {
-      case "EuropeanSwallow":
-        return "average";
-      case "AfricanSwallow":
-        return this.numberOfCoconuts > 2 ? "tired" : "average";
-      case "NorwegianBlueParrot":
-        return this.voltage > 100 ? "scorched" : "beautiful";
       default:
-        return "unknown";
+        return "unknown"; //기본 동작
     }
   }
 
@@ -42,9 +36,21 @@ class Bird {
 }
 
 //Bird subclass - 종별 서브 클래스
-class EuropeanSwallow extends Bird {}
-class AfricanSwallow extends Bird {}
-class NorwegianBlueParrot extends Bird {}
+class EuropeanSwallow extends Bird {
+  get plumage() {
+    return "average";
+  }
+}
+class AfricanSwallow extends Bird {
+  get plumage() {
+    return this.numberOfCoconuts > 2 ? "tired" : "average";
+  }
+}
+class NorwegianBlueParrot extends Bird {
+  get plumage() {
+    return this.voltage > 100 ? "scorched" : "beautiful";
+  }
+}
 
 /************************************************************************************************ */
 // 서브클래스 인스턴스를 생성할 팩터리 함수
@@ -68,8 +74,7 @@ const createBird = (bird) => {
  */
 const speed = (birds) => new Map(birds.map((b) => [b.name, airSpeedVelocity(b)]));
 const airSpeedVelocity = (bird) => {
-  //   return new Bird(bird).airSpeedVelocity;
-  return createBird(bird).airSpeedVelocity;
+  return new Bird(bird).airSpeedVelocity;
 };
 
 /**
@@ -78,7 +83,6 @@ const airSpeedVelocity = (bird) => {
  * @returns
  */
 const plumage = (bird) => {
-  //   return new Bird(bird).plumage;
   return createBird(bird).plumage;
 };
 const plumages = (birds) => {
@@ -87,23 +91,23 @@ const plumages = (birds) => {
 
 console.log(speed(birds));
 /**
-     * Spped 결과
-     * 
-     * Map { 'EuropeanSwallow' => 35,
-      'AfricanSwallow1' => 36,
-      'AfricanSwallow2' => 32,
-      'NorwegianBlueParrot1' => 310,
-      'NorwegianBlueParrot2' => 0 }
-      ​​​​​at ​​​​​​​​speed(birds)​​​
-     * 
-     */
+       * Spped 결과
+       * 
+       * Map { 'EuropeanSwallow' => 35,
+        'AfricanSwallow1' => 36,
+        'AfricanSwallow2' => 32,
+        'NorwegianBlueParrot1' => 310,
+        'NorwegianBlueParrot2' => 0 }
+        ​​​​​at ​​​​​​​​speed(birds)​​​
+       * 
+       */
 console.log(plumages(birds));
 /**
-     * plumage 결과
-     * Map { 'EuropeanSwallow' => 'average',
-      'AfricanSwallow1' => 'average',
-      'AfricanSwallow2' => 'tired',
-      'NorwegianBlueParrot1' => 'scorched',
-      'NorwegianBlueParrot2' => 'beautiful' }
-      ​​​​​at ​​​​​​​​plumages(birds)
-     */
+       * plumage 결과
+       * Map { 'EuropeanSwallow' => 'average',
+        'AfricanSwallow1' => 'average',
+        'AfricanSwallow2' => 'tired',
+        'NorwegianBlueParrot1' => 'scorched',
+        'NorwegianBlueParrot2' => 'beautiful' }
+        ​​​​​at ​​​​​​​​plumages(birds)
+       */
