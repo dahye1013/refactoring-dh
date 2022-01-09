@@ -27,7 +27,16 @@ const isUnknown = (customer) => customer === "unknown";
 
 const client1 = () => {
   const rawSite = acquireSiteData();
-  const enrichSite = (inputSite) => JSON.parse(JSON.stringify(inputSite));
+  const enrichSite = (aSite) => {
+    const result = JSON.parse(JSON.stringify(aSite));
+    const unKnowCustomer = {
+      isUnknown: true,
+    };
+    if (isUnknown(result.customer)) return unKnowCustomer;
+    else result.customer.isUnknown = false;
+    return result;
+  };
+
   const site = enrichSite(rawSite); //깊은 복사수행
   const customer = site.customer;
   //...
