@@ -32,15 +32,8 @@ class Rating {
 
   get voyageAndHistoryProfitFactor() {
     let result = 0;
-    if (this.voyage.zone === "china" && hasChina(this.history)) {
-      result += 3;
-      if (this.history.length > 10) result += 1;
-      if (this.voyage.length > 12) result += 1;
-      if (this.voyage.length > 18) result -= 1;
-    } else {
-      if (this.history.length > 8) result += 1;
-      if (this.voyage.length > 14) result -= 1;
-    }
+    if (this.history.length > 8) result += 1;
+    if (this.voyage.length > 14) result -= 1;
     return result;
   }
 
@@ -58,11 +51,21 @@ class Rating {
 }
 
 /**[subClass]---------------------------------------------------------------- */
+// 변형동작 - 슈퍼 클래스와의 차이를 표현해야하는 서브클래스에서만 신경쓰도록 한다.
 class ExperiencedChinaRating extends Rating {
   //override
   get captainHistoryRisk() {
     const result = super.captainHistoryRisk - 2;
     return Math.max(result, 0);
+  }
+  //override
+  get voyageAndHistoryProfitFactor() {
+    let result = 0;
+    result += 3;
+    if (this.history.length > 10) result += 1;
+    if (this.voyage.length > 12) result += 1;
+    if (this.voyage.length > 18) result -= 1;
+    return result;
   }
 }
 
