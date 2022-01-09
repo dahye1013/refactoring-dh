@@ -23,12 +23,6 @@ class Bird {
 
   get airSpeedVelocity() {
     switch (this.type) {
-      case "EuropeanSwallow":
-        return 35;
-      case "AfricanSwallow":
-        return 40 - 2 * this.numberOfCoconuts;
-      case "NorwegianBlueParrot":
-        return this.isNailed ? 0 : 10 + this.voltage / 10;
       default:
         return null;
     }
@@ -40,15 +34,24 @@ class EuropeanSwallow extends Bird {
   get plumage() {
     return "average";
   }
+  get airSpeedVelocity() {
+    return 35;
+  }
 }
 class AfricanSwallow extends Bird {
   get plumage() {
     return this.numberOfCoconuts > 2 ? "tired" : "average";
   }
+  get airSpeedVelocity() {
+    return 40 - 2 * this.numberOfCoconuts;
+  }
 }
 class NorwegianBlueParrot extends Bird {
   get plumage() {
     return this.voltage > 100 ? "scorched" : "beautiful";
+  }
+  get airSpeedVelocity() {
+    return this.isNailed ? 0 : 10 + this.voltage / 10;
   }
 }
 
@@ -74,7 +77,7 @@ const createBird = (bird) => {
  */
 const speed = (birds) => new Map(birds.map((b) => [b.name, airSpeedVelocity(b)]));
 const airSpeedVelocity = (bird) => {
-  return new Bird(bird).airSpeedVelocity;
+  return createBird(bird).airSpeedVelocity;
 };
 
 /**
@@ -91,23 +94,23 @@ const plumages = (birds) => {
 
 console.log(speed(birds));
 /**
-       * Spped 결과
-       * 
-       * Map { 'EuropeanSwallow' => 35,
-        'AfricanSwallow1' => 36,
-        'AfricanSwallow2' => 32,
-        'NorwegianBlueParrot1' => 310,
-        'NorwegianBlueParrot2' => 0 }
-        ​​​​​at ​​​​​​​​speed(birds)​​​
-       * 
-       */
+         * Spped 결과
+         * 
+         * Map { 'EuropeanSwallow' => 35,
+          'AfricanSwallow1' => 36,
+          'AfricanSwallow2' => 32,
+          'NorwegianBlueParrot1' => 310,
+          'NorwegianBlueParrot2' => 0 }
+          ​​​​​at ​​​​​​​​speed(birds)​​​
+         * 
+         */
 console.log(plumages(birds));
 /**
-       * plumage 결과
-       * Map { 'EuropeanSwallow' => 'average',
-        'AfricanSwallow1' => 'average',
-        'AfricanSwallow2' => 'tired',
-        'NorwegianBlueParrot1' => 'scorched',
-        'NorwegianBlueParrot2' => 'beautiful' }
-        ​​​​​at ​​​​​​​​plumages(birds)
-       */
+         * plumage 결과
+         * Map { 'EuropeanSwallow' => 'average',
+          'AfricanSwallow1' => 'average',
+          'AfricanSwallow2' => 'tired',
+          'NorwegianBlueParrot1' => 'scorched',
+          'NorwegianBlueParrot2' => 'beautiful' }
+          ​​​​​at ​​​​​​​​plumages(birds)
+         */
