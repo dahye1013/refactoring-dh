@@ -1,15 +1,16 @@
 const registry = { billingPlans: { basic: "" } };
-//특이케이스 객체 생성
-const createUnknowCustomer = () => {
-  return {
+
+//특이케이스 객체 생성 - 리터럴 불변객체로 고정
+const createUnknowCustomer = () =>
+  Object.freeze({
     isUnknown: true,
     name: "occupant",
     billingPlans: registry.billingPlans.basic,
     paymentHistory: {
       weeksDelinquentInLastYear: 0,
     },
-  };
-};
+  });
+
 //특이케이스 조건 검사 - 함수추출
 const isUnknown = (arg) => {
   return arg.isUnknown;
