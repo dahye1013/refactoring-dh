@@ -32,6 +32,7 @@ const client1 = () => {
     const unKnowCustomer = {
       isUnknown: true,
       name: "occupant",
+      billingPlans: registry.billingPlans.basic,
     };
     if (isUnknown(result.customer)) return unKnowCustomer;
     else result.customer.isUnknown = false;
@@ -44,7 +45,7 @@ const client1 = () => {
   const customerName = customer.name;
 };
 const client2 = () => {
-  const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
+  const plan = customer.billingPlan;
 };
 const client3 = () => {
   const weeksDelinquent = isUnknown(customer) ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
