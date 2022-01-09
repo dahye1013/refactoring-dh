@@ -5,6 +5,9 @@ const createUnknowCustomer = () => {
     isUnknown: true,
     name: "occupant",
     billingPlans: registry.billingPlans.basic,
+    paymentHistory: {
+      weeksDelinquentInLastYear: 0,
+    },
   };
 };
 //특이케이스 조건 검사 - 함수추출
@@ -62,5 +65,5 @@ const client2 = () => {
 };
 const client3 = () => {
   const customer = new Site().customer;
-  const weeksDelinquent = isUnknown(customer) ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
+  const weeksDelinquent = customer.paymentHsitry.weeksDelinquentInLastYear;
 };
