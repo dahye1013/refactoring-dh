@@ -44,6 +44,9 @@ class UnKnownCustomer {
   get isUnKnown() {
     return true;
   }
+  get name() {
+    return "occupant";
+  }
 }
 
 const isUnknown = (arg) => {
@@ -55,10 +58,7 @@ const isUnknown = (arg) => {
 
 const client1 = () => {
   const customer = new Site().customer;
-  //...
-  let customerName;
-  if (isUnknown(customer)) customerName = "occupant";
-  else customerName = customer.name;
+  customerName = customer.name;
 };
 const client2 = () => {
   const customer = new Site().customer;
