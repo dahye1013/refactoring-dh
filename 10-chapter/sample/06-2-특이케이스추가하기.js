@@ -4,6 +4,10 @@ const createUnknowCustomer = () => {
     isUnknown: true,
   };
 };
+//특이케이스 조건 검사 - 함수추출
+const isUnknown = (arg) => {
+  return arg === "unknown";
+};
 
 class Site {
   constructor(customer) {
@@ -48,14 +52,14 @@ const client1 = () => {
   const customer = new Site().customer;
   //...
   let customerName;
-  if (customer === "unknown") customerName = "occupant";
+  if (isUnknown(customer)) customerName = "occupant";
   else customerName = customer.name;
 };
 const client2 = () => {
   const customer = new Site().customer;
-  const plan = customer === "unknown" ? registry.billingPlans.basic : customer.billingPlan;
+  const plan = isUnknown(customer) ? registry.billingPlans.basic : customer.billingPlan;
 };
 const client3 = () => {
   const customer = new Site().customer;
-  const weeksDelinquent = customer === "unknown" ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
+  const weeksDelinquent = isUnknown(customer) ? 0 : customer.paymentHsitry.weeksDelinquentInLastYear;
 };
