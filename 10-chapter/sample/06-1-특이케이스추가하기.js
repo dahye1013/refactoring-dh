@@ -6,7 +6,8 @@ class Site {
   }
 
   get customer() {
-    return _customer;
+    //특이케이스일 경우, UnKnownCustomer 반환
+    return _customer === "unknown" ? new UnKnownCustomer() : this._customer;
   }
 }
 
@@ -46,7 +47,7 @@ class UnKnownCustomer {
 }
 
 const isUnknown = (arg) => {
-  if (!(arg instanceof Customer) || arg === "unknown") {
+  if (!(arg instanceof Customer) || arg === UnKnownCustomer) {
     throw new Error(`잘못된 값과 비교 <${arg}>`);
   }
   return arg === "unknown";
