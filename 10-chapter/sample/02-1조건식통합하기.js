@@ -1,4 +1,7 @@
 const disabilityAmount = (anEmployee) => {
-  if (anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime) return 0;
-  // 장애 수당 계산
+  //장애수당 적용 여부 확인
+  const isNotEligibleForDisability = () => {
+    anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime;
+  };
+  if (isNotEligibleForDisability()) return 0;
 };
