@@ -1,3 +1,10 @@
+//특이케이스 객체 생성
+const createUnknowCustomer = () => {
+  return {
+    isUnknown: true,
+  };
+};
+
 class Site {
   constructor(customer) {
     this._customer = customer;
@@ -5,6 +12,11 @@ class Site {
 
   get customer() {
     return _customer;
+  }
+
+  //특이케이스 속성
+  get isUnknown() {
+    return false;
   }
 }
 
