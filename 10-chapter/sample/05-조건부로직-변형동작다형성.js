@@ -32,9 +32,7 @@ class Rating {
   }
 
   get voyageLengthFactor() {
-    let result = 0;
-    if (this.voyage.length > 14) result -= 1;
-    return result;
+    return this.voyage.length > 14 ? -1 : 0;
   }
 
   get historyLengthFactor() {
@@ -57,6 +55,10 @@ class Rating {
 /**[subClass]---------------------------------------------------------------- */
 // 변형동작 - 슈퍼 클래스와의 차이를 표현해야하는 서브클래스에서만 신경쓰도록 한다.
 class ExperiencedChinaRating extends Rating {
+  //override - 수익 요인
+  get voyageProfitFactor() {
+    return super.voyageProfitFactor + 3;
+  }
   //override
   get captainHistoryRisk() {
     const result = super.captainHistoryRisk - 2;
@@ -65,7 +67,6 @@ class ExperiencedChinaRating extends Rating {
   //override
   get voyageLengthFactor() {
     let result = 0;
-    result += 3;
     if (this.voyage.length > 12) result += 1;
     if (this.voyage.length > 18) result -= 1;
     return result;
