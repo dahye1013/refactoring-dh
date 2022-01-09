@@ -27,13 +27,13 @@ class Rating {
     if (this.voyage.zone === "china") result += 1;
     if (this.voyage.zone === "east-indies") result += 1;
     result += this.voyageAndHistoryProfitFactor;
+    result += this.historyLengthFactor;
     return result;
   }
 
   // and가 붙은 메서드는 독립된 일을 수행하므로 분리해야한다.
   get voyageAndHistoryProfitFactor() {
     let result = 0;
-    result += this.historyLengthFactor;
     if (this.voyage.length > 14) result -= 1;
     return result;
   }
@@ -68,7 +68,6 @@ class ExperiencedChinaRating extends Rating {
   get voyageAndHistoryProfitFactor() {
     let result = 0;
     result += 3;
-    result += this.historyLengthFactor;
     if (this.voyage.length > 12) result += 1;
     if (this.voyage.length > 18) result -= 1;
     return result;
