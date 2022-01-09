@@ -43,7 +43,6 @@ class Rating {
     let result = 1;
     if (this.history.length < 5) result += 4;
     result += this.history.filter((v) => v.profit < 0).length;
-    if (voyage.zone === "china" && hasChina(this.history)) result -= 2;
     return Math.max(result, 0);
   }
   //중국 경유 여부
@@ -53,7 +52,13 @@ class Rating {
 }
 
 /**[subClass]---------------------------------------------------------------- */
-class ExperiencedChinaRating extends Rating {}
+class ExperiencedChinaRating extends Rating {
+  //override
+  get captainHistoryRisk() {
+    const result = super.captainHistoryRisk - 2;
+    return Math.max(result, 0);
+  }
+}
 
 /************************************************************************************************ */
 
@@ -79,7 +84,7 @@ const histories = [
 ];
 
 const ratingData = new Rating(voyage, histories);
-const myRating = rating(voyage, histories);
+const myRating = createRating(voyage, histories);
 console.info({
   voyageRisk: ratingData.voyageRisk,
   captainHistoryRisk: ratingData.captainHistoryRisk,
