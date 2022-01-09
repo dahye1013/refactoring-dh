@@ -25,7 +25,9 @@ const registry = { billingPlans: { basic: "" } };
 const acquireSiteData = () => RECORDS[0];
 
 const client1 = () => {
-  const site = acquireSiteData();
+  const rawSite = acquireSiteData();
+  const enrichSite = (inputSite) => JSON.parse(JSON.stringify(inputSite));
+  const site = enrichSite(rawSite); //깊은 복사수행
   const customer = site.customer;
   //...
   let customerName;
