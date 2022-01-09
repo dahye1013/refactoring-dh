@@ -30,11 +30,16 @@ class Rating {
     return result;
   }
 
+  // and가 붙은 메서드는 독립된 일을 수행하므로 분리해야한다.
   get voyageAndHistoryProfitFactor() {
     let result = 0;
-    if (this.history.length > 8) result += 1;
+    result += this.historyLengthFactor;
     if (this.voyage.length > 14) result -= 1;
     return result;
+  }
+
+  get historyLengthFactor() {
+    return this.history.length > 8 ? 1 : 0;
   }
 
   //선장의 항해 이력 위험요소
@@ -59,13 +64,18 @@ class ExperiencedChinaRating extends Rating {
     return Math.max(result, 0);
   }
   //override
+  // and가 붙은 메서드는 독립된 일을 수행하므로 분리해야한다.
   get voyageAndHistoryProfitFactor() {
     let result = 0;
     result += 3;
-    if (this.history.length > 10) result += 1;
+    result += this.historyLengthFactor;
     if (this.voyage.length > 12) result += 1;
     if (this.voyage.length > 18) result -= 1;
     return result;
+  }
+  //override
+  get historyLengthFactor() {
+    return this.history.length > 10 ? 1 : 0;
   }
 }
 
