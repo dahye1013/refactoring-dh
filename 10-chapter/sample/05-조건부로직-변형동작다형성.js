@@ -1,3 +1,11 @@
+//국가 타입 상수화
+const COUNTRY_TYPE = Object.freeze({
+  EAST_INDEA: "east-indies",
+  WEST_INDEA: "west-indies",
+  CHINA: "china",
+  WEST_AFRICA: "west-africa",
+});
+
 /**[Class]********************************************************************************************** */
 class Rating {
   constructor(voyage, history) {
@@ -17,15 +25,15 @@ class Rating {
     let result = 1;
     if (this.voyage.length > 4) result += 2;
     if (this.voyage.length > 8) result += this.voyage.length - 8;
-    if (["china", "east-indies"].includes(this.voyage.zone)) result += 4;
+    if ([COUNTRY_TYPE.CHINA, COUNTRY_TYPE.EAST_INDEA].includes(this.voyage.zone)) result += 4;
     return Math.max(result, 0);
   }
 
   //수익 요인
   get voyageProfitFactor() {
     let result = 2;
-    if (this.voyage.zone === "china") result += 1;
-    if (this.voyage.zone === "east-indies") result += 1;
+    if (this.voyage.zone === COUNTRY_TYPE.CHINA) result += 1;
+    if (this.voyage.zone === COUNTRY_TYPE.EAST_INDEA) result += 1;
     result += this.voyageLengthFactor;
     result += this.historyLengthFactor;
     return result;
@@ -48,7 +56,7 @@ class Rating {
   }
   //중국 경유 여부
   get hasChina() {
-    return this.history.some((v) => v.zone === "china");
+    return this.history.some((v) => v.zone === COUNTRY_TYPE.CHINA);
   }
 }
 
@@ -85,7 +93,7 @@ const rating = (voyage, history) => {
 };
 
 const createRating = (voyage, history) => {
-  if (voyage.zone === "중국" && history.some((v) => "china" === v.zone)) return new ExperiencedChinaRating(voyage, history).value;
+  if (voyage.zone === COUNTRY_TYPE.CHINA && history.some((v) => COUNTRY_TYPE.CHINA === v.zone)) return new ExperiencedChinaRating(voyage, history).value;
   return new Rating(voyage, history).value;
 };
 
@@ -94,10 +102,10 @@ const createRating = (voyage, history) => {
 //샘플데이터
 const voyage = { zone: "west-indies", length: 10 };
 const histories = [
-  { zone: "east-indies", profit: 5 },
-  { zone: "west-indies", profit: 15 },
-  { zone: "china", profit: -2 },
-  { zone: "west-africa", profit: 7 },
+  { zone: COUNTRY_TYPE.EAST_INDEA, profit: 5 },
+  { zone: COUNTRY_TYPE.WEST_INDEA, profit: 15 },
+  { zone: COUNTRY_TYPE.CHINA, profit: -2 },
+  { zone: COUNTRY_TYPE.WEST_AFRICA, profit: 7 },
 ];
 
 const ratingData = new Rating(voyage, histories);
