@@ -8,12 +8,8 @@ class ResourcePool<T extends Resource> {
       result = Resource.create();
       this.allocated.push(result);
     } else {
-      try {
-        result = this.available.pop();
-        this.allocated.push(result);
-      } catch (e) {
-        throw new Error("도달 불가");
-      }
+      result = this.available.pop();
+      this.allocated.push(result);
     }
     return result;
   }
