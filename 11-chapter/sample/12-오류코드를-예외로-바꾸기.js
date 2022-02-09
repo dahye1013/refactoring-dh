@@ -34,9 +34,8 @@ const errorList = [];
 // - 콜스택 상위에 해당 예외처리 할 예외 핸들러 작성
 // - 처음에는 모든 예외를 던진다.
 // - 적절 처리하는 핸들러 존재하면, 지금 콜스택도 처리하도록 확장한다.
-let status;
 try {
-  state = calculateShippingCosts(orderData);
+  calculateShippingCosts(orderData);
 } catch (e) {
   console.log(e); //{ [OrderProcessingError: 주문 처리 오류 -23] code: -23 }
   if (e instanceof OrderProcessingError) {
@@ -45,8 +44,6 @@ try {
   throw e;
 }
 
-if (state < 0) errorList.push({ order: orderData, errorCode: state });
-
 function localShippingRules(country) {
   const data = countryData.shippingRules[country];
   if (data) return new ShippingRules(data);
@@ -54,7 +51,6 @@ function localShippingRules(country) {
 }
 function calculateShippingCosts(order) {
   // ...
-  const shippingRules = localShippingRules(order.country);
-  if (shippingRules < 0) return shippingRules; // 오류 전파
+  localShippingRules(order.country);
   // ...
 }
