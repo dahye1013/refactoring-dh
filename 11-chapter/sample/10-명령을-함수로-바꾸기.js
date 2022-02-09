@@ -12,5 +12,8 @@ class ChargeCalculator {
   }
 }
 
+const charge = (customer, usage, provider) =>
+  new ChargeCalculator(customer, usage, provider).charge;
+
 //호출자
-const monthCharge = new ChargeCalculator(customer, usage, provider).charge;
+const monthCharge = charge(customer, usage, provider).charge;
