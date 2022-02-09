@@ -1,7 +1,5 @@
 # 11장 API 리팩토링
 
-# 11장 API 리팩토링
-
 좋은 API는 **데이터를 갱신하는 함수**와 **그저 조회만하는 함수**를 명확하게 구분한다.
 
 - 두 기능이 섞여 있다면?
@@ -343,6 +341,10 @@ const leadEngineer = createEngineer(document.leadEngineer);
 >
 > 지금 설명하는 맥락에서의 명령은 요청을 캡슐화 한 객체이다.
 
+**11.9 함수를 명령으로 바꾸기 - 리팩토링 샘플 코드**
+
+[History for 11-chapter/sample/09-함수를-명령으로-바꾸기.js - dahye1013/refactoring-dh](https://github.com/dahye1013/refactoring-dh/commits/ch11/11-chapter/sample/09-%ED%95%A8%EC%88%98%EB%A5%BC-%EB%AA%85%EB%A0%B9%EC%9C%BC%EB%A1%9C-%EB%B0%94%EA%BE%B8%EA%B8%B0.js)
+
 ## 11.10 명령을 함수로 바꾸기
 
 ### 명령 객체
@@ -351,6 +353,10 @@ const leadEngineer = createEngineer(document.leadEngineer);
 - 하나를 여러 개의 작은 메서드로 쪼개고 필드를 이용하여 쪼개진 메서드끼리 정보를 공유 할 수 있다.
 - 어떤 메서드를 호출하냐에 따라 다른 효과와 각 단계를 거치며 데이터를 완성해나갈 수 도 있다.
   **⇒ 하지만! 로직이 복잡하지 않다면, 단점이 더 크므로 평범한 함수로 바꾸는 것이 낫다.**
+
+**11.10 명령을 함수로 바꾸기 - 리팩토링 샘플 코드**
+
+[History for 11-chapter/sample/10-명령을-함수로-바꾸기.js - dahye1013/refactoring-dh](https://github.com/dahye1013/refactoring-dh/commits/ch11/11-chapter/sample/10-%EB%AA%85%EB%A0%B9%EC%9D%84-%ED%95%A8%EC%88%98%EB%A1%9C-%EB%B0%94%EA%BE%B8%EA%B8%B0.js)
 
 ## 11.11 수정 된 값 반환하기
 
@@ -362,6 +368,40 @@ const leadEngineer = createEngineer(document.leadEngineer);
 - 변수를 갱신하는 함수 → 수정된 값을 반환
   → 이 방식을 사용하면 호출자 코드를 읽을 때 변수 갱신을 인지 할 수 있다.
   — 하나의 값을 계산한다는 목적이 있을 때 가장 효과적이다.
+
+### 리팩토링 전😅
+
+```jsx
+let points = [];
+let totalAscent = 0;
+
+calculateAscent();
+
+function calculateAscent() {
+  for (let i = 1; i < points.length; i++) {
+    const verticalChange = points[i].elevation - points[i - 1].elevation;
+    totalAscent += verticalChange > 0 ? verticalChange : 0;
+  }
+}
+```
+
+### 리팩토링 후😇 - 갱신 사실 밖으로
+
+```jsx
+let points = [];
+const totalAscent = calculateAscent();
+
+function calculateAscent() {
+  let result = 0;
+  for (let i = 1; i < points.length; i++) {
+    const verticalChange = points[i].elevation - points[i - 1].elevation;
+    result += verticalChange > 0 ? verticalChange : 0;
+  }
+  return totalAscent;
+}
+function calculateTime() {}
+function calculateDistance() {}
+```
 
 ## 11.12 오류 코드를 예외로 바꾸기
 
@@ -375,10 +415,18 @@ const leadEngineer = createEngineer(document.leadEngineer);
   - 다른 정교한 매커니즘과 함께 사용시에만 최고의 효과를 낸다.
 - 정확히 예상 밖의 동작일 때만 쓰여야 한다.
 
-## 11.12 예외를 사전 확인으로 바꾸기
+**11.11 오류 코드를 예외로 바꾸기 - 리팩토링 샘플 코드**
+
+[History for 11-chapter/sample/12-오류코드를-예외로-바꾸기.js - dahye1013/refactoring-dh](https://github.com/dahye1013/refactoring-dh/commits/ch11/11-chapter/sample/12-%EC%98%A4%EB%A5%98%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%98%88%EC%99%B8%EB%A1%9C-%EB%B0%94%EA%BE%B8%EA%B8%B0.js)
+
+## 11.13 예외를 사전 확인으로 바꾸기
 
 예외는 예외적으로 동작 할 때만 쓰여야 한다.
 
 즉, 문제가 될 수 있는 조건을 함수 호출 전에 검사 할 수 있다면
 
 **⇒ 예외를 던지는 대신 호출부에서 조건 검사를 수행하는 것이 좋다.**
+
+**11.13 예외를 사전 확인으로 바꾸기 - 리팩토링 샘플 코드**
+
+[History for 11-chapter/sample/13-예외를-사전확인으로-바꾸기.ts - dahye1013/refactoring-dh](https://github.com/dahye1013/refactoring-dh/commits/ch11/11-chapter/sample/13-%EC%98%88%EC%99%B8%EB%A5%BC-%EC%82%AC%EC%A0%84%ED%99%95%EC%9D%B8%EC%9C%BC%EB%A1%9C-%EB%B0%94%EA%BE%B8%EA%B8%B0.ts)
