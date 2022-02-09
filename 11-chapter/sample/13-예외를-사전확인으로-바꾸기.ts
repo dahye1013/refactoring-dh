@@ -4,14 +4,20 @@ class ResourcePool<T extends Resource> {
 
   get() {
     let result;
-    try {
-      result = this.available.pop();
-      this.allocated.push(result);
-    } catch (e) {
+    if (this.isEmpty) {
       result = Resource.create();
       this.allocated.push(result);
+    } else {
+      try {
+        result = this.available.pop();
+        this.allocated.push(result);
+      } catch (e) {}
     }
     return result;
+  }
+
+  isEmpty() {
+    this.available.length === 0;
   }
 }
 
