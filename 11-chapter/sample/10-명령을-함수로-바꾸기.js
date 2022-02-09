@@ -4,11 +4,9 @@ class ChargeCalculator {
     this._usage = usage;
     this._provider = provider;
   }
-  get baseCharge() {
-    return this._customer.baseRate * this._usage;
-  }
   get charge() {
-    return this.baseCharge + this._provider.connectionCharge;
+    const baseCharge = this._customer.baseRate * this._usage; //보조함수 인라인
+    return baseCharge + this._provider.connectionCharge;
   }
 }
 
