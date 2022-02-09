@@ -17,6 +17,17 @@ class ShippingRules {
   }
 }
 
+//[예외를 구분할 식별 방법]
+class OrderProcessingError extends Error {
+  constructor(errorCode) {
+    super(`주문 처리 오류 ${errorCode}`);
+    this.code = errorCode;
+  }
+  get name() {
+    return "OrderProcessingError";
+  }
+}
+
 const errorList = [];
 
 //[예외 핸들러]
@@ -27,6 +38,10 @@ let status;
 try {
   state = calculateShippingCosts(orderData);
 } catch (e) {
+  console.log(e); //{ [OrderProcessingError: 주문 처리 오류 -23] code: -23 }
+  if (e instanceof OrderProcessingError) {
+    errorList.push({ order: orderData, errorCode: e.code });
+  }
   throw e;
 }
 
@@ -35,7 +50,7 @@ if (state < 0) errorList.push({ order: orderData, errorCode: state });
 function localShippingRules(country) {
   const data = countryData.shippingRules[country];
   if (data) return new ShippingRules(data);
-  else return -23;
+  else throw new OrderProcessingError(-23); //오류 대신 예외 던지기
 }
 function calculateShippingCosts(order) {
   // ...
