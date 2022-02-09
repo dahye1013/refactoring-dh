@@ -11,7 +11,9 @@ class ResourcePool<T extends Resource> {
       try {
         result = this.available.pop();
         this.allocated.push(result);
-      } catch (e) {}
+      } catch (e) {
+        throw new Error("도달 불가");
+      }
     }
     return result;
   }
